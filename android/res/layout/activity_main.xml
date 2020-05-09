@@ -13,32 +13,11 @@
         android:layout_height="wrap_content"
         android:text="Escoja un juego dentro de la lista que se encuentra a continuación"/>
 
-    <Button
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="GTA V"
-        android:id="@+id/GTA"
-        />
+        android:layout_height="match_parent"
+        android:id="@+id/lista_games">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ANIMAL CROSSING"
-        android:id="@+id/AC"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="MINECRAFT"
-        android:id="@+id/MCRAFT"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="THE WITCHER 3"
-        android:id="@+id/W3"
-        />
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

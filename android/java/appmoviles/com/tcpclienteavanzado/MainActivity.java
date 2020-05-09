@@ -8,56 +8,54 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterGames.OnItemClickListener {
 
     private FirebaseDatabase db;
-    private Button GTA, AC, MCRAFT, W3;
+    private RecyclerView lista_games;
+    private AdapterGames adapterGames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GTA = findViewById(R.id.GTA);
-        AC = findViewById(R.id.AC);
-        MCRAFT = findViewById(R.id.MCRAFT);
-        W3 = findViewById(R.id.W3);
+        lista_games = findViewById(R.id.lista_games);
+
+        adapterGames = new AdapterGames();
+        adapterGames.setListener(this);
+        lista_games.setLayoutManager(new LinearLayoutManager(this));
+        lista_games.setAdapter(adapterGames);
+        lista_games.setHasFixedSize(true);
 
         db = FirebaseDatabase.getInstance();
 
-        GTA.setOnClickListener(new View.OnClickListener() {
+        ValueEventListener gameListener = new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                writeData("GTA");
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //GameModel game = dataSnapshot.getValue(GameModel.class);
+                adapterGames.showAllAmigos(dataSnapshot.getValue());
             }
-        });
-
-        AC.setOnClickListener(new View.OnClickListener() {
+        
             @Override
-            public void onClick(View view) {
-                writeData("AC");
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
-        });
-
-        MCRAFT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                writeData("MCRAFT");
-            }
-        });
-
-        W3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                writeData("W3");
-            }
-        });
+        };
+        db.child("juegos").addValueEventListener(gameListener);
     }
-
-    private void writeData(String play) {
+/*
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
+    }
+*/
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onItemClick(GameModel game) {
         Date rightnow = Calendar.getInstance().getTime();
 
-        DatabaseReference postsRef = db.getReference().child(play);
+        DatabaseReference postsRef = db.getReference().child("votes/"+game.getName());
         DatabaseReference pushedPostRef = postsRef.push();
 
         postsRef.setValue( new DataModel( rightnow.toString(), pushedPostRef.getKey() ) );
