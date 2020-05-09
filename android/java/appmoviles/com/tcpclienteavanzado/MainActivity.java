@@ -61,5 +61,8 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference pushedPostRef = postsRef.push();
 
         postsRef.setValue( new DataModel( rightnow.toString(), pushedPostRef.getKey() ) );
+
+        Intent intent = new Intent(this, goBack.class);
+        startActivity(intent);
     }
 }
