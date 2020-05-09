@@ -16,5 +16,11 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
 const writeUserData = (id, obj, callback) => {
-    firebase.database().ref('juegos/' + id).set(obj).then(e => callback());
+    database.ref('juegos/' + id).set(obj).then(e => callback());
+}
+
+const setListener = (path, callback) => {
+    database.ref(path).on('value', snapshot =>
+        callback( snapshot.val() )
+    )
 }
