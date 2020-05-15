@@ -1,12 +1,26 @@
-package appmoviles.com.tcpclienteavanzado;
+package com.example.danielaangelsarriaparcialfinal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.util.Log;
+
+
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements AdapterGames.OnItemClickListener {
 
@@ -32,16 +46,17 @@ public class MainActivity extends AppCompatActivity implements AdapterGames.OnIt
         ValueEventListener gameListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //GameModel game = dataSnapshot.getValue(GameModel.class);
-                adapterGames.showAllAmigos(dataSnapshot.getValue());
+                String game = dataSnapshot.getValue(String.class);
+                adapterGames.showAllGames(dataSnapshot.getValue());
+                Log.e("QUE SE VEAAAAA",game);
             }
         
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                Log.w("holakakakkaka", "loadPost:onCancelled", databaseError.toException());
             }
         };
-        db.child("juegos").addValueEventListener(gameListener);
+        db.getReference().child("juegos").addValueEventListener(gameListener);
     }
 /*
     @Override

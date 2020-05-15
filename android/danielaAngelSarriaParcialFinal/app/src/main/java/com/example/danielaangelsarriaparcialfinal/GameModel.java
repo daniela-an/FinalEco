@@ -1,5 +1,4 @@
-package appmoviles.com.tcpclienteavanzado;
-
+package com.example.danielaangelsarriaparcialfinal;
 public class GameModel {
     public String name, studio, year;
 

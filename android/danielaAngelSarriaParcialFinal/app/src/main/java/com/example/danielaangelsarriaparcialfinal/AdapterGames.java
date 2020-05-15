@@ -1,11 +1,14 @@
-package appmoviles.com.appsmoviles20191;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+package com.example.danielaangelsarriaparcialfinal;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+
 
 import java.util.ArrayList;
 

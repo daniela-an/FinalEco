@@ -1,3 +1,5 @@
+package com.example.danielaangelsarriaparcialfinal;
+
 public class DataModel {
     public String time, id;
 
